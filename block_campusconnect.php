@@ -22,27 +22,52 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use stdClass;
 use local_campusconnect\export;
 
-defined('MOODLE_INTERNAL') || die();
-
+/**
+ * Class for CampusConnect block.
+ *
+ * @package    block_campusconnect
+ * @copyright  2012 Synergy Learning
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class block_campusconnect extends block_base {
-    function init() {
+
+    /**
+     * Init.
+     */
+    public function init() {
         $this->title = get_string('pluginname', 'block_campusconnect');
     }
 
-    function applicable_formats() {
-        return array('course' => true, 'course-category' => false, 'site' => true);
+    /**
+     * Locations where block can be displayed.
+     *
+     * @return array
+     */
+    public function applicable_formats() {
+        return ['course' => true, 'course-category' => false, 'site' => true];
     }
 
-    function instance_allow_multiple() {
+    /**
+     *  Is allow multiple.
+     *
+     * @return boolean
+     */
+    public function instance_allow_multiple() {
         return false;
     }
 
-    function get_content() {
-        global $PAGE, $COURSE, $SITE;
+    /**
+     * Returns the contents.
+     *
+     * @return stdClass|null contents of block
+     */
+    public function get_content() {
+        global $COURSE, $SITE;
 
-        if ($this->content !== null) {
+        if (isset($this->content)) {
             return $this->content;
         }
 
@@ -50,7 +75,7 @@ class block_campusconnect extends block_base {
             return null; // Cannot export the SITE course.
         }
 
-        if (!$PAGE->user_is_editing()) {
+        if (!$this->page->user_is_editing()) {
             return null; // Only visible when editing is on.
         }
 
@@ -61,7 +86,7 @@ class block_campusconnect extends block_base {
         $export = new export($COURSE->id);
 
         $this->content = new stdClass();
-        $editurl = new moodle_url('/blocks/campusconnect/export.php', array('courseid' => $COURSE->id));
+        $editurl = new moodle_url('/blocks/campusconnect/export.php', ['courseid' => $COURSE->id]);
         $editlink = html_writer::link($editurl, get_string('editexport', 'block_campusconnect'));
         $this->content->footer = $editlink;
         if (!$export->is_exported()) {

@@ -29,12 +29,12 @@ global $CFG, $DB, $SITE, $PAGE, $OUTPUT;
 require_once($CFG->dirroot.'/blocks/campusconnect/export_form.php');
 
 $courseid = required_param('courseid', PARAM_INT);
-$course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);
+$course = $DB->get_record('course', ['id' => $courseid], '*', MUST_EXIST);
 if ($course->id == $SITE->id) {
     throw new moodle_exception('notsiteid', 'block_campusconnect');
 }
 
-$PAGE->set_url(new moodle_url('/blocks/campusconnect/export.php', array('courseid' => $course->id)));
+$PAGE->set_url(new moodle_url('/blocks/campusconnect/export.php', ['courseid' => $course->id]));
 require_login($course);
 
 $context = context_course::instance($course->id);
@@ -43,7 +43,7 @@ require_capability('moodle/course:update', $context);
 $export = new export($course->id);
 $form = new block_campusconnect_export_form(null, $export);
 
-$redir = new moodle_url('/course/view.php', array('id' => $course->id));
+$redir = new moodle_url('/course/view.php', ['id' => $course->id]);
 if ($form->is_cancelled()) {
     redirect($redir);
 }

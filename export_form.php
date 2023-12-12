@@ -29,9 +29,20 @@ global $CFG;
 require_once($CFG->dirroot.'/lib/formslib.php');
 
 /**
- * Class block_campusconnect_export_form
+ * Class block_campusconnect_export_form.
+ *
+ * @package    block_campusconnect
+ * @copyright  2012 Synergy Learning
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class block_campusconnect_export_form extends moodleform {
+
+    /**
+     * Form definition.
+     *
+     * @return mixed
+     *
+     */
     protected function definition() {
         $mform = $this->_form;
         /** @var export $export */

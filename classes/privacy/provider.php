@@ -24,12 +24,19 @@
 
 namespace block_campusconnect\privacy;
 
-defined('MOODLE_INTERNAL') || die();
+use core_privacy\local\metadata\null_provider;
 
-class provider implements \core_privacy\local\metadata\null_provider {
+/**
+ * Class privacy provider.
+ *
+ * @package   block_campusconnect
+ * @copyright 2019 Davo Smith, Synergy Learning
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+class provider implements null_provider {
     use \core_privacy\local\legacy_polyfill;
 
-    public static function _get_reason() {
+    public static function get_reason() {
         return 'privacy:null_reason';
     }
 }

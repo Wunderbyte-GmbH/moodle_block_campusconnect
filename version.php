@@ -25,9 +25,9 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->version = 2019111300;
-$plugin->requires = 2017051505; // Moodle 3.3.5+
-$plugin->cron = 0; // Does not use cron
+$plugin->requires = 2017051505; // Moodle 3.3.5+.
+$plugin->cron = 0;              // Does not use cron.
 $plugin->component = 'block_campusconnect';
 $plugin->maturity = MATURITY_STABLE;
 $plugin->release = '3.3.5+ (Build: 2019111300)';
-$plugin->dependencies = array('local_campusconnect' => 2012062700);
+$plugin->dependencies = ['local_campusconnect' => 2012062700];
